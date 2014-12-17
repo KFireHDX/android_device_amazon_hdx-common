@@ -38,26 +38,22 @@ PRODUCT_COPY_FILES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
 	fstab.qcom \
-	init.qcom.rc \
-	init.qcom.usb.rc \
-	init.target.rc \
-	init.class_main.sh \
-	init.mdm.sh \
 	init.qcom.class_core.sh \
+	init.qcom.class_main.sh \
 	init.qcom.early_boot.sh \
-	init.qcom.factory.sh \
+	init.qcom.rc \
+	init.qcom.ril.sh \
 	init.qcom.sensor.sh \
 	init.qcom.sh \
-	init.qcom.ssr.sh \
 	init.qcom.syspart_fixup.sh \
+	init.qcom.usb.rc \
 	init.qcom.usb.sh \
-	ueventd.qcom.rc \
-	init.recovery.qcom.rc
+	init.target.rc \
+	init.trace.rc
 
 # Safestrap compatibility
 PRODUCT_COPY_FILES += \
 	$(COMMON_FOLDER)/rootdir/etc/fstab.qcom:system/etc/rootfs/fstab.qcom \
-	$(COMMON_FOLDER)/rootdir/etc/init.qcom.rc:system/etc/rootfs/init.qcom.rc \
 	$(COMMON_FOLDER)/rootdir/ss/init.rc:system/etc/rootfs/init.rc \
 	$(COMMON_FOLDER)/rootdir/ss/init.cm.rc:system/etc/rootfs/init.cm.rc \
 	$(COMMON_FOLDER)/rootdir/ss/init.environ.rc:system/etc/rootfs/init.environ.rc \
@@ -70,14 +66,9 @@ PRODUCT_COPY_FILES += \
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio_policy.msm8974 \
-    audio.primary.msm8974 \
     audio.r_submix.default \
     audio.usb.default \
-    libaudio-resampler \
-    libqcompostprocbundle \
-    libqcomvisualizer \
-    libqcomvoiceprocessing
+    libaudio-resampler 
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -134,9 +125,9 @@ PRODUCT_PACKAGES += \
     power.msm8974
 
 # QRNGD
-PRODUCT_PACKAGES += \
-    qrngd \
-    qrngp
+#PRODUCT_PACKAGES += \
+#    qrngd \
+#    qrngp
 
 # Keystore
 #PRODUCT_PACKAGES += \

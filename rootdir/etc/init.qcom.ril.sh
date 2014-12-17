@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+# Copyright (c) 2013, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -8,7 +8,7 @@
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-#     * Neither the name of The Linux Foundation nor
+#     * Neither the name of Linux Foundation nor
 #       the names of its contributors may be used to endorse or promote
 #       products derived from this software without specific prior written
 #       permission.
@@ -27,60 +27,12 @@
 #
 
 #
-# start ril-daemon only for targets on which radio is present
+# start two rild when dsds property enabled
 #
-baseband=`getprop ro.baseband`
-sgltecsfb=`getprop persist.radio.sglte_csfb`
-datamode=`getprop persist.data.mode`
-
-#
-# We have an external modem, so the following doesn't apply:
-#
-# case "$baseband" in
-#     "apq")
-#     setprop ro.radio.noril yes
-#     stop ril-daemon
-# esac
-#
-
-case "$baseband" in
-    "msm" | "csfb" | "svlte2a" | "mdm" | "mdm2" | "sglte" | "sglte2" | "dsda2" | "unknown" | "dsda3")
-    start qmuxd
-    case "$baseband" in
-        "svlte2a" | "csfb")
-          start qmiproxy
-        ;;
-        "sglte" | "sglte2" )
-          if [ "x$sgltecsfb" != "xtrue" ]; then
-              start qmiproxy
-          else
-              setprop persist.radio.voice.modem.index 0
-          fi
-        ;;
-        "dsda2")
-          setprop persist.radio.multisim.config dsda
-    esac
-
-    multisim=`getprop persist.radio.multisim.config`
-
-    if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
-        stop ril-daemon
-        start ril-daemon
-        start ril-daemon1
-    elif [ "$multisim" = "tsts" ]; then
-        stop ril-daemon
-        start ril-daemon
-        start ril-daemon1
-        start ril-daemon2
-    fi
-
-    case "$datamode" in
-        "tethered")
-            start qti
-            start port-bridge
-            ;;
-        *)
-            start netmgrd
-            ;;
-    esac
-esac
+multisim=`getprop persist.multisim.config`
+if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
+    setprop ro.multi.rild true
+    stop ril-daemon
+    start ril-daemon
+    start ril-daemon1
+fi

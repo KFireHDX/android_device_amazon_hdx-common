@@ -25,63 +25,30 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-
 #
 # Function to start sensors for DSPS enabled platforms
 #
 start_sensors()
 {
-    device=`getprop ro.product.device`
     if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
-        if [ "$device" == "apollo" -o "$device" == "thor" -o \
-	     "$device" == "kodiak" -o "$device" == "loki" -o \
-	     "$device" == "saturn" ]; then
-            mkdir -p /persist/sensors
-            touch /persist/sensors/sensors_settings
-        fi
-        chmod -h 775 /persist/sensors
-        chmod -h 664 /persist/sensors/sensors_settings
-        chown -h system.root /persist/sensors/sensors_settings
+        mkdir -p /data/system/sensors
+        touch /data/system/sensors/settings
+        chmod 775 /data/system/sensors
+        chmod 664 /data/system/sensors/settings
+        chown system /data/system/sensors/settings
 
-	if [ "$device" == "loki" -o "$device" == "saturn" ]; then
-	    mkdir -p /persist/misc/sensors
-	    chmod -h 775 /persist/misc/sensors
-	fi
         mkdir -p /data/misc/sensors
-        chmod -h 775 /data/misc/sensors
+        chmod 775 /data/misc/sensors
 
-        if [ "$device" == "apollo" -o "$device" == "thor" -o \
-	     "$device" == "kodiak" -o "$device" == "loki" -o \
-	     "$device" == "saturn" ]; then
-            if [ ! -s /persist/sensors/sensors_settings ]; then
-                # If the settings file is empty, enable sensors HAL
-                # Otherwise leave the file with it's current contents
-                echo 1 > /persist/sensors/sensors_settings
-            fi
+        if [ ! -s /data/system/sensors/settings ]; then
+            # If the settings file is empty, enable sensors HAL
+            # Otherwise leave the file with it's current contents
+            echo 1 > /data/system/sensors/settings
         fi
-	if [ "$device" == "kodiak" ]; then
-	    if [ ! -d /persist/sensor_calibration ]; then
-                /system/bin/log -t Sensors -p w /persist/sensor_calibration missing, creating it
-                /system/bin/log -t Sensors -p w Some calibration data is permanently lost.
-                if ! mkdir -p /persist/sensor_calibration; then
-		    /system/bin/log -t Sensors -p e Cannot create /persist/sensor_calibration
-                fi
-	    fi
-        fi
-        #bootmode=`cat /proc/idme/bootmode`
-
-        if [ "$device" == "apollo" -o "$device" == "thor" ]; then
-            do_cal=`getprop persist.sensors.calibrated`
-            if [ "$do_cal" == "" -o "$do_cal" == "0" ]; then
-                    if [ -f /persist/sensor_calibration/sns.reg ]; then
-                        mv /persist/sensor_calibration/sns.reg  /persist/sensor_calibration/sns.reg.old
-                    fi
-                    setprop persist.sensors.calibrated 1
-            fi
-
-        fi
-
-        if [ "$device" != "kodiak" -o `cat /proc/idme/bootmode` != 2 ]; then
+	bootmode=`cat /proc/idme/bootmode`
+	board_id=`cat /proc/idme/board_id`
+	case $board_id in 80*) class=80;; *) class=0;; esac
+	if [ "$class" != 80 -o "$bootmode" != 2 ]; then
             start sensors
         fi
     fi

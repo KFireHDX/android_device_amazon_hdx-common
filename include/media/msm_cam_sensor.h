@@ -40,26 +40,16 @@
 #define MAX_ACTUATOR_REGION 5
 #define MAX_ACTUATOR_INIT_SET 12
 #define MAX_ACTUATOR_REG_TBL_SIZE 8
-#define MAX_ACTUATOR_AF_TOTAL_STEPS 1024
 
 #define MOVE_NEAR 0
 #define MOVE_FAR  1
 
-#define MSM_ACTUATOR_MOVE_SIGNED_FAR -1
-#define MSM_ACTUATOR_MOVE_SIGNED_NEAR  1
-
 #define MAX_EEPROM_NAME 32
-
-#define MAX_AF_ITERATIONS 3
-#define MAX_NUMBER_OF_STEPS 47
-
-
 
 enum msm_camera_i2c_reg_addr_type {
 	MSM_CAMERA_I2C_BYTE_ADDR = 1,
 	MSM_CAMERA_I2C_WORD_ADDR,
 	MSM_CAMERA_I2C_3B_ADDR,
-	MSM_CAMERA_I2C_ADDR_TYPE_MAX,
 };
 
 enum msm_camera_i2c_data_type {
@@ -70,7 +60,6 @@ enum msm_camera_i2c_data_type {
 	MSM_CAMERA_I2C_SET_WORD_MASK,
 	MSM_CAMERA_I2C_UNSET_WORD_MASK,
 	MSM_CAMERA_I2C_SET_BYTE_WRITE_MASK_DATA,
-	MSM_CAMERA_I2C_DATA_TYPE_MAX,
 };
 
 enum msm_sensor_power_seq_type_t {
@@ -90,11 +79,6 @@ enum msm_sensor_clk_type_t {
 enum msm_sensor_power_seq_gpio_t {
 	SENSOR_GPIO_RESET,
 	SENSOR_GPIO_STANDBY,
-	SENSOR_GPIO_AF_PWDM,
-	SENSOR_GPIO_VIO,
-	SENSOR_GPIO_VANA,
-	SENSOR_GPIO_VDIG,
-	SENSOR_GPIO_VAF,
 	SENSOR_GPIO_MAX,
 };
 
@@ -149,11 +133,6 @@ enum camera_vreg_type {
 	REG_LDO,
 	REG_VS,
 	REG_GPIO,
-};
-
-enum sensor_af_t {
-	SENSOR_AF_FOCUSSED,
-	SENSOR_AF_NOT_FOCUSSED,
 };
 
 struct msm_sensor_power_setting {
@@ -328,19 +307,18 @@ enum eeprom_cfg_type_t {
 	CFG_EEPROM_READ_CAL_DATA,
 	CFG_EEPROM_WRITE_DATA,
 };
-
 struct eeprom_get_t {
-	uint32_t num_bytes;
+	uint16_t num_bytes;
 };
 
 struct eeprom_read_t {
 	uint8_t *dbuffer;
-	uint32_t num_bytes;
+	uint16_t num_bytes;
 };
 
 struct eeprom_write_t {
 	uint8_t *dbuffer;
-	uint32_t num_bytes;
+	uint16_t num_bytes;
 };
 
 struct msm_eeprom_cfg_data {
@@ -369,17 +347,6 @@ enum msm_sensor_cfg_type_t {
 	CFG_SET_RESOLUTION,
 	CFG_SET_STOP_STREAM,
 	CFG_SET_START_STREAM,
-	CFG_SET_SATURATION,
-	CFG_SET_CONTRAST,
-	CFG_SET_SHARPNESS,
-	CFG_SET_ISO,
-	CFG_SET_EXPOSURE_COMPENSATION,
-	CFG_SET_ANTIBANDING,
-	CFG_SET_BESTSHOT_MODE,
-	CFG_SET_EFFECT,
-	CFG_SET_WHITE_BALANCE,	
-	CFG_SET_AUTOFOCUS,
-	CFG_CANCEL_AUTOFOCUS,
 };
 
 enum msm_actuator_cfg_type_t {
@@ -387,7 +354,6 @@ enum msm_actuator_cfg_type_t {
 	CFG_SET_ACTUATOR_INFO,
 	CFG_SET_DEFAULT_FOCUS,
 	CFG_MOVE_FOCUS,
-	CFG_ENABLE_OIS,
 	CFG_ACTUATOR_POWERDOWN,
 };
 
@@ -431,7 +397,6 @@ struct msm_actuator_move_params_t {
 	int8_t sign_dir;
 	int16_t dest_step_pos;
 	int32_t num_steps;
-	int32_t num_steps_inf_pos;
 	struct damping_params_t *ringing_params;
 };
 
@@ -487,13 +452,6 @@ enum af_camera_name {
 	ACTUATOR_WEB_CAM_2,
 };
 
-
-struct msm_actuator_set_position_t {
-	uint16_t number_of_steps;
-	uint16_t pos[MAX_NUMBER_OF_STEPS];
-	uint16_t delay[MAX_NUMBER_OF_STEPS];
-};
-
 struct msm_actuator_cfg_data {
 	int cfgtype;
 	uint8_t is_af_supported;
@@ -501,9 +459,7 @@ struct msm_actuator_cfg_data {
 		struct msm_actuator_move_params_t move;
 		struct msm_actuator_set_info_t set_info;
 		struct msm_actuator_get_info_t get_info;
-		struct msm_actuator_set_position_t setpos;
 		enum af_camera_name cam_name;
-		uint8_t enable_ois;
 	} cfg;
 };
 
@@ -571,8 +527,6 @@ struct msm_camera_ois_cfg_t {
 #define VIDIOC_MSM_OIS_DATA_CFG \
 	_IOWR('V', BASE_VIDIOC_PRIVATE + 9, struct msm_camera_ois_cfg_t)
 
-#define VIDIOC_MSM_SENSOR_GET_AF_STATUS \
-	_IOWR('V', BASE_VIDIOC_PRIVATE + 9, uint32_t)
 
 #define MSM_V4L2_PIX_FMT_META v4l2_fourcc('M', 'E', 'T', 'A') /* META */
 

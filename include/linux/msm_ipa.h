@@ -64,11 +64,6 @@
 #define IPA_RESOURCE_NAME_MAX 20
 
 /**
- * max number of interface properties
- */
-#define IPA_NUM_PROPS_MAX 20
-
-/**
  * size of the mac address
  */
 #define IPA_MAC_ADDR_SIZE  6
@@ -92,7 +87,6 @@
 #define IPA_FLT_NEXT_HDR       (1ul << 13)
 #define IPA_FLT_META_DATA      (1ul << 14)
 #define IPA_FLT_FRAGMENT       (1ul << 15)
-#define IPA_FLT_TOS_MASKED     (1ul << 16)
 
 /**
  * enum ipa_client_type - names for the various IPA "clients"
@@ -249,8 +243,6 @@ struct ipa_rule_attrib {
 	uint16_t dst_port_hi;
 	uint8_t type;
 	uint8_t code;
-	uint8_t tos_value;
-	uint8_t tos_mask;
 	uint32_t spi;
 	uint16_t src_port;
 	uint16_t dst_port;

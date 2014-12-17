@@ -20,11 +20,11 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := krait
 
 # Kernel -> use prebuilt kernel ...
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom androidboot.baseband=apq user_debug=31 maxcpus=2 msm_rtb.filter=0x3F ehci-hcd.park=3
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-#BOARD_KERNEL_SEPARATED_DT := true
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
+BOARD_KERNEL_SEPARATED_DT := true
 
 # Flags for Krait CPU
 TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
@@ -43,9 +43,11 @@ TARGET_QCOM_DISPLAY_VARIANT := caf-hdx
 TARGET_QCOM_MEDIA_VARIANT := caf-hdx
 
 # Audio
-AUDIO_FEATURE_DISABLED_SSR := true #MSM ANDROID
 BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_LEGACY_ALSA_AUDIO := false
+QCOM_AUDIO_FEATURE_DISABLED_SSR := true
+TARGET_USES_QCOM_MM_AUDIO := false
+QCOM_SSR_ENABLED := false
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true

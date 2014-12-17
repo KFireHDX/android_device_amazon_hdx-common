@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,21 +29,9 @@
 export PATH=/system/bin
 
 # Set platform variables
-if [ -f /sys/devices/soc0/hw_platform ]; then
-    soc_hwplatform=`cat /sys/devices/soc0/hw_platform` 2> /dev/null
-else
-    soc_hwplatform=`cat /sys/devices/system/soc/soc0/hw_platform` 2> /dev/null
-fi
-if [ -f /sys/devices/soc0/soc_id ]; then
-    soc_hwid=`cat /sys/devices/soc0/soc_id` 2> /dev/null
-else
-    soc_hwid=`cat /sys/devices/system/soc/soc0/id` 2> /dev/null
-fi
-if [ -f /sys/devices/soc0/platform_version ]; then
-    soc_hwver=`cat /sys/devices/soc0/platform_version` 2> /dev/null
-else
-    soc_hwver=`cat /sys/devices/system/soc/soc0/platform_version` 2> /dev/null
-fi
+soc_hwplatform=`cat /sys/devices/system/soc/soc0/hw_platform` 2> /dev/null
+soc_hwid=`cat /sys/devices/system/soc/soc0/id` 2> /dev/null
+soc_hwver=`cat /sys/devices/system/soc/soc0/platform_version` 2> /dev/null
 
 log -t BOOT -p i "MSM target '$1', SoC '$soc_hwplatform', HwID '$soc_hwid', SoC ver '$soc_hwver'"
 
@@ -123,9 +111,6 @@ case "$1" in
                 # Android sw navigation bar
                 setprop ro.hw.nav_keys 0
                 ;;
-            "Dragon")
-                setprop ro.sf.lcd_density 240
-                ;;
             *)
                 setprop ro.sf.lcd_density 320
                 ;;
@@ -140,29 +125,10 @@ case "$1" in
         esac
         ;;
 
-    "msm8610" | "apq8084" | "mpq8092")
+    "msm8610" | "apq8084")
         case "$soc_hwplatform" in
             *)
                 setprop ro.sf.lcd_density 240
-                ;;
-        esac
-        ;;
-    "apq8084")
-        case "$soc_hwplatform" in
-            "Liquid")
-                setprop ro.sf.lcd_density 320
-                # Liquid do not have hardware navigation keys, so enable
-                # Android sw navigation bar
-                setprop ro.hw.nav_keys 0
-                ;;
-            "SBC")
-                setprop ro.sf.lcd_density 200
-                # SBC do not have hardware navigation keys, so enable
-                # Android sw navigation bar
-                setprop qemu.hw.mainkeys 0
-                ;;
-            *)
-                setprop ro.sf.lcd_density 480
                 ;;
         esac
         ;;
@@ -172,29 +138,27 @@ esac
 # HDMI can be fb1 or fb2
 # Loop through the sysfs nodes and determine
 # the HDMI(dtv panel)
-for fb_cnt in 0 1 2
+for file in /sys/class/graphics/fb*
 do
-file=/sys/class/graphics/fb$fb_cnt
-dev_file=/dev/graphics/fb$fb_cnt
-  if [ -d "$file" ]
-  then
     value=`cat $file/msm_fb_type`
     case "$value" in
             "dtv panel")
-        chown -h system.graphics $file/hpd
-        chown -h system.system $file/hdcp/tp
-        chown -h system.graphics $file/vendor_name
-        chown -h system.graphics $file/product_description
-        chmod -h 0664 $file/hpd
-        chmod -h 0664 $file/hdcp/tp
-        chmod -h 0664 $file/vendor_name
-        chmod -h 0664 $file/product_description
-        chmod -h 0664 $file/video_mode
-        chmod -h 0664 $file/format_3d
+        chown system.graphics $file/hpd
+        chown system.graphics $file/vendor_name
+        chown system.graphics $file/product_description
+        chmod 0664 $file/hpd
+        chmod 0664 $file/vendor_name
+        chmod 0664 $file/product_description
+        chmod 0664 $file/video_mode
+        chmod 0664 $file/format_3d
         # create symbolic link
-        ln -s $dev_file /dev/graphics/hdmi
+        ln -s $file /dev/graphics/hdmi
         # Change owner and group for media server and surface flinger
-        chown -h system.system $file/format_3d;;
+        chown system.system $file/format_3d;;
     esac
-  fi
 done
+
+# Set date to a time after 2008
+# This is a workaround for Zygote to preload time related classes properly
+date -s 20090102.130000
+

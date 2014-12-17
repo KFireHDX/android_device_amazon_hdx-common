@@ -40,20 +40,6 @@
 
 #define MSM_MAX_CAMERA_SENSORS  5
 
-/* The below macro is defined to put an upper limit on maximum
- * number of buffer requested per stream. In case of extremely
- * large value for number of buffer due to data structure corruption
- * we return error to avoid integer overflow. This value may be
- * configured in future*/
-#define MSM_CAMERA_MAX_STREAM_BUF 40
-
-/* The below macro is defined to put an upper limit on maximum
- * number of buffer requested per stream. In case of extremely
- * large value for number of buffer due to data structure corruption
- * we return error to avoid integer overflow. This value may be
- * configured in future*/
-#define MSM_CAMERA_MAX_STREAM_BUF 40
-
 /* featur base */
 #define MSM_CAMERA_FEATURE_BASE     0x00010000
 #define MSM_CAMERA_FEATURE_SHUTDOWN (MSM_CAMERA_FEATURE_BASE + 1)
@@ -115,41 +101,9 @@ struct ov680_gain {
 #define MSM_SENSOR_METADATA_MAGIC 0xC0DEBABA
 
 struct msm_sensor_metadata {
-        uint32_t magic; /* must be the first field always*/
+	uint32_t magic; /* must be the first field always*/
         uint32_t input;
-        uint32_t output_format;
-        uint16_t  exposure1; /* usec, sensor exposure for whole frame or left subframe (side by side layout) */
-        uint16_t  exposure2; /* usec, sensor exposure for right subframe */
-        uint16_t  gain1; /* sensor gain for whole frame or left subframe (side by side layout) */
-        uint16_t  gain2; /* sensor gain for right subframe */
-        uint32_t  frame_rate;
-        union {
-            uint32_t flags;
-            struct {
-                uint32_t AEC_on : 1;
-                uint32_t AGC_on : 1;
-		/* the following bits indicate if  the async IOCTL calls have failed */
-                uint32_t exposure_failed : 1;
-                uint32_t gain_failed : 1;
-                uint32_t flash_duration_failed : 1;
-                uint32_t flash_current_failed : 1;
-            };
-        };
-	uint16_t flash_duration; /* usec, duration of flash for all sensors */
-	uint16_t flash_current[4]; /* mA, current of flash for each sensor */
-};
-
-struct ov680_irled_config {
-        uint32_t flash_current[4];
-        uint32_t duration;
-};
-
-struct ov680_irled_max_current_req {
-	/* These will be filled in by the user request */
-        uint32_t frame_rate;
-        uint32_t duration;
-	/* This will be filled in by the driver */
-	uint32_t max_current;
+	uint32_t output_format;
 };
 
 /* Lab126 specific IOCTLs */
@@ -174,29 +128,20 @@ struct ov680_irled_max_current_req {
 #define VIDIOC_OV680_SENSOR_LOAD_FIRMWARE\
         _IO('V', BASE_VIDIOC_LAB126 + 5)
 
-#define VIDIOC_OV680_SENSOR_SET_IRLED_CONFIG\
-        _IOW('V', BASE_VIDIOC_LAB126 + 6, struct ov680_irled_config)
-
-#define VIDIOC_OV680_SENSOR_REQUEST_FIRMWARE\
-        _IO('V', BASE_VIDIOC_LAB126 + 7)
-
-#define ISPIF_FRAME_EVENT_BASE BASE_VIDIOC_LAB126 + 8
-
-#define VIDIOC_OV680_SENSOR_GET_IRLED_MAX_CURRENT\
-        _IO('V', BASE_VIDIOC_LAB126 + 9)
-
-
 /* Lab126 specific sensor controls */
 
 #define MSM_V4L2_PID_OV680_SENSOR_FRAME_MODE  (OV680_PRIV_BASE+0)
 #define MSM_V4L2_PID_OV680_AEC_AGC_MODE       (OV680_PRIV_BASE+1)
-#define MSM_V4L2_PID_OV680_AEC_AGC_TARGET     (OV680_PRIV_BASE+2)
-#define MSM_V4L2_PID_OV680_FPS                (OV680_PRIV_BASE+3)
-#define MSM_V4L2_PID_OV680_SENSOR_ISP_CONFIG  (OV680_PRIV_BASE+4)
-#define MSM_V4L2_PID_OV680_SENSOR_LENC_CONFIG (OV680_PRIV_BASE+5)
-#define MSM_V4L2_PID_OV680_SENSOR_DPC_CONFIG  (OV680_PRIV_BASE+6)
+#define MSM_V4L2_PID_OV680_SENSOR_STROBE_MODE (OV680_PRIV_BASE+2)
+#define MSM_V4L2_PID_OV680_AEC_AGC_TARGET     (OV680_PRIV_BASE+3)
+#define MSM_V4L2_PID_OV680_FPS                (OV680_PRIV_BASE+4)
+#define MSM_V4L2_PID_OV680_SENSOR_ISP_CONFIG  (OV680_PRIV_BASE+5)
+#define MSM_V4L2_PID_OV680_SENSOR_LENC_CONFIG (OV680_PRIV_BASE+6)
+#define MSM_V4L2_PID_OV680_SENSOR_DPC_CONFIG  (OV680_PRIV_BASE+7)
+#define MSM_V4L2_PID_OV680_SENSOR_STROBE_SPAN (OV680_PRIV_BASE+8)
+#define MSM_V4L2_PID_OV680_IRLED_CURRENT      (OV680_PRIV_BASE+9)
 
-#define  OV680_PRIV_MAX MSM_V4L2_PID_OV680_SENSOR_DPC_CONFIG
+#define  OV680_PRIV_MAX MSM_V4L2_PID_OV680_IRLED_CURRENT
 
 /* data.status - success */
 #define MSM_CAMERA_CMD_SUCESS      0x00000001

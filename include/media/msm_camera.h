@@ -1706,6 +1706,7 @@ struct damping_params_t {
 enum actuator_type {
 	ACTUATOR_VCM,
 	ACTUATOR_PIEZO,
+	ACTUATOR_OIS,
 };
 
 enum msm_actuator_data_type {
