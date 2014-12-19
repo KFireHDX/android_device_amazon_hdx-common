@@ -26,14 +26,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -168,7 +165,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.chipname=msm8974 \
     ro.sf.lcd_density=320 \
-    ro.opengles.version=196608 \
+    ro.opengles.version=131072 \
     persist.timed.enable=true \
     keyguard.no_require_sim=true \
     lockscreen.rot_override=true
@@ -198,7 +195,33 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw=1 \
     debug.egl.hw=1 \
     persist.hwc.mdpcomp.enable=true \
-    debug.mdpcomp.logs=0
+    debug.mdpcomp.logs=0 \
+    debug.composition.type=c2d
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.hdmi.enable=true \
+	tunnel.decode=true \
+	tunnel.audiovideo.decode=true \
+	tunnel.multiple=true \
+	lpa.decode=false \
+	lpa.use-stagefright=true \
+	persist.speaker.prot.enable=false \
+	media.stagefright.enable-player=true \
+	media.stagefright.enable-http=true \
+	media.stagefright.enable-aac=true \
+	media.stagefright.enable-qcp=true \
+	media.stagefright.enable-fma2dp=true \
+	media.stagefright.enable-scan=true \
+	mmp.enable.3g2=true \
+	media.aac_51_output_enabled=true
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.qcom.ad=1 \
+	ro.qcom.ad.calib.data=/system/etc/ad_calib.cfg
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.sys.recovery.batt_level=25 \
+	dmid=1932882026
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
