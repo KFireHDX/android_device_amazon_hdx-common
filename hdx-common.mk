@@ -46,7 +46,8 @@ PRODUCT_PACKAGES += \
 	init.qcom.usb.rc \
 	init.qcom.usb.sh \
 	init.target.rc \
-	init.trace.rc
+	init.trace.rc \
+	ueventd.qcom.rc
 
 # Safestrap compatibility
 PRODUCT_COPY_FILES += \
