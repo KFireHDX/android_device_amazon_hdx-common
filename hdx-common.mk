@@ -184,8 +184,9 @@ ro.telephony.ril_class=SkyQualcommUiccRIL
 #ro.telephony.ril_class=Smdk4210RIL
 #ro.telephony.ril_class=MotoWrigley3RIL
 
+#    ro.telephony.ril_class=AMZQualcommRil \
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril_class=AMZQualcommRil \
+    ro.telephony.ril.v3=qcomdsds \
     rild.libpath=/system/lib/libril-lab126qmi.so \
     ril.subscription.types=NV,RUIM \
     persist.rild.nitz_plmn="" \

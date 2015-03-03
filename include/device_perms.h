@@ -11,4 +11,5 @@
 // Alternatively you can append to the existing property_perms and/or
 // control_perms structs with the following:
 #define PROPERTY_PERMS_APPEND \
-    { "persist.ril.",       AID_RADIO,    0 }, 
+    { "persist.ril.stat.reboot",       AID_RADIO,    0 }, \
+    { "persist.ril.",                  AID_RADIO,    0 },
