@@ -12,4 +12,5 @@
 // control_perms structs with the following:
 #define PROPERTY_PERMS_APPEND \
     { "persist.ril.stat.reboot",       AID_RADIO,    0 }, \
+    { "persist.ril.stat.usb.reset",    AID_RADIO,    0 }, \
     { "persist.ril.",                  AID_RADIO,    0 },
