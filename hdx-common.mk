@@ -171,7 +171,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Radio props
 #https://github.com/84506232/device_pantech_ef40s/blob/master/system.prop
 #ro.telephony.ril_class=QualcommSharedRIL
-ro.telephony.ril_class=SkyQualcommUiccRIL
+#ro.telephony.ril_class=SkyQualcommUiccRIL
 #ro.telephony.ril_class=SamsungQualcommUiccRIL
 #ro.telephony.ril_class=LGEQualcommUiccRIL
 #ro.telephony.ril_class=HTCQualcommRIL
@@ -183,8 +183,8 @@ ro.telephony.ril_class=SkyQualcommUiccRIL
 #ro.telephony.ril_class=SemcRIL
 #ro.telephony.ril_class=Smdk4210RIL
 #ro.telephony.ril_class=MotoWrigley3RIL
+#ro.telephony.ril_class=AMZQualcommRil \
 
-#    ro.telephony.ril_class=AMZQualcommRil \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril.v3=qcomdsds \
     rild.libpath=/system/lib/libril-lab126qmi.so \

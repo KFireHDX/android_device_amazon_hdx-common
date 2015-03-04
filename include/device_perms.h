@@ -1,16 +1,27 @@
-// Overload this file in your own device-specific config if you need
-// non-standard property_perms and/or control_perms structs
-//
-// To avoid conflicts...
-// if you redefine property_perms, #define PROPERTY_PERMS there
-// if you redefine control_perms, #define CONTROL_PARMS there
-//
-// A typical file will look like:
-//
+/*
+ * Copyright (C) 2012 The CyanogenMod Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// Alternatively you can append to the existing property_perms and/or
-// control_perms structs with the following:
+#ifndef DEVICE_PERMS_H
+#define DEVICE_PERMS_H
+
 #define PROPERTY_PERMS_APPEND \
     { "persist.ril.stat.reboot",       AID_RADIO,    0 }, \
     { "persist.ril.stat.usb.reset",    AID_RADIO,    0 }, \
-    { "persist.ril.",                  AID_RADIO,    0 },
+    { "persist.ril.stat.reboot",    AID_RADIO,    0 }, \
+    { "persist.ril.stat.lastboot",    AID_RADIO,    0 }, \
+    { "persist.ril.stat.usb.reset",    AID_RADIO,    0 },
+
+#endif /* DEVICE_PERMS_H */
