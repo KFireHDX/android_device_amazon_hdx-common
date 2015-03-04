@@ -169,24 +169,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     lockscreen.rot_override=true
 
 # Radio props
-#https://github.com/84506232/device_pantech_ef40s/blob/master/system.prop
-#ro.telephony.ril_class=QualcommSharedRIL
-#ro.telephony.ril_class=SkyQualcommUiccRIL
-#ro.telephony.ril_class=SamsungQualcommUiccRIL
-#ro.telephony.ril_class=LGEQualcommUiccRIL
-#ro.telephony.ril_class=HTCQualcommRIL
-#ro.telephony.ril_class=HuaweiRIL
-#ro.telephony.ril_class=LGEQualcommRIL
-#ro.telephony.ril_class=LGEStarRIL
-#ro.telephony.ril_class=SamsungCDMAQualcommRIL
-#ro.telephony.ril_class=SamsungRIL
-#ro.telephony.ril_class=SemcRIL
-#ro.telephony.ril_class=Smdk4210RIL
-#ro.telephony.ril_class=MotoWrigley3RIL
-#ro.telephony.ril_class=AMZQualcommRil \
-
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril.v3=qcomdsds \
     rild.libpath=/system/lib/libril-lab126qmi.so \
     ril.subscription.types=NV,RUIM \
     persist.rild.nitz_plmn="" \
