@@ -52,6 +52,7 @@ PRODUCT_PACKAGES += \
 	init.qcom.syspart_fixup.sh \
 	init.qcom.usb.sh \
 	ueventd.qcom.rc \
+	ueventd.rc \
 	init.recovery.qcom.rc
 
 # Audio
