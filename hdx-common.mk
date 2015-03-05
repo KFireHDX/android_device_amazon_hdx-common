@@ -267,6 +267,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #	persist.audio.calfile5=/etc/acdbdata/THOR/Headset_cal.acdb \
 #	persist.audio.calfile6=/etc/acdbdata/THOR/Speaker_cal.acdb \
 
+# CM updater
+PRODUCT_PROPERTY_OVERRIDES += \
+	cm.updater.uri
+
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 # We have enough storage space to hold precise GC data
