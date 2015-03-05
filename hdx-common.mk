@@ -269,7 +269,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # CM updater
 PRODUCT_PROPERTY_OVERRIDES += \
-	cm.updater.uri
+	cm.updater.uri=""
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
