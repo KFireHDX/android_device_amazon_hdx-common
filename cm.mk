@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## Specify phone tech before including full_phone
-$(call inherit-product, vendor/cm/config/gsm.mk)
+# Inherit some common cyanogenmod stuff.
+$(call inherit-product-if-exists, vendor/cm/config/common_full_tablet_wifionly.mk)
 
 ## Specify phone tech before including full_phone
 $(call inherit-product, vendor/cm/config/telephony.mk)
 
-# Inherit some common cyanogenmod stuff.
-$(call inherit-product-if-exists, vendor/cm/config/common_full_tablet_wifionly.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/amazon/hdx-common/overlay/cm
 
