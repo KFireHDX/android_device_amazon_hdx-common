@@ -72,7 +72,6 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 WIFI_BT_STATUS_SYNC := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/amazon/hdx-common/bluetooth
-#BLUETOOTH_HCI_USE_MCT := true
 QCOM_BT_USE_SMD_TTY := true
 
 # chargers
