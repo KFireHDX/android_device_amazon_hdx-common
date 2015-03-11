@@ -269,7 +269,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # CM updater
 PRODUCT_PROPERTY_OVERRIDES += \
-	cm.updater.uri=""
+	cm.updater.uri=http://kfirehdx.ddns.net/CyanogenModOTA/api
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
