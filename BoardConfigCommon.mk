@@ -21,7 +21,7 @@ TARGET_CPU_VARIANT := krait
 
 
 # Vendor Unification Init
-TARGET_UNIFIED_DEVICE := true
+#TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_LIBINIT_DEFINES_FILE := device/amazon/hdx-common/init/init_hdx.c
 
