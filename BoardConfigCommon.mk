@@ -19,6 +19,12 @@ TARGET_CPU_SMP := true
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := krait
 
+
+# Vendor Unification Init
+TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_LIBINIT_DEFINES_FILE := device/amazon/hdx-common/init/init_hdx.c
+
 # Kernel -> use prebuilt kernel ...
 ifeq ($(TARGET_DEVICE),thor)
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 mdss_mdp.panel=0:qcom,mdss_dsi_novatek_1080p_video androidboot.selinux=permissive
