@@ -1,7 +1,5 @@
 COMMON_FOLDER := device/amazon/hdx-common
 
-$(call inherit-product, device/qcom/common/common.mk)
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Get non-open-source specific aspects
