@@ -264,6 +264,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #	persist.audio.calfile5=/etc/acdbdata/THOR/Headset_cal.acdb \
 #	persist.audio.calfile6=/etc/acdbdata/THOR/Speaker_cal.acdb \
 
+# MultiUser
+PRODUCT_PROPERTY_OVERRIDES += \
+	fw.max_users=3 \
+	lockscreen.rot_override=true
+
 # CM updater
 PRODUCT_PROPERTY_OVERRIDES += \
 	cm.updater.uri=http://kfirehdx.ddns.net/CyanogenModOTA/api
