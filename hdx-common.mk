@@ -94,7 +94,7 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    gps.msm8974
+    gps.default
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -189,6 +189,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	debug.egl.hw=1 \
 	persist.hwc.mdpcomp.enable=true \
 	debug.mdpcomp.logs=0 
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.qc.sdk.izat.premium_enabled=1 \
+	ro.qc.sdk.izat.service_mask=0x0 \
+	persist.gps.qc_nlp_in_use=1 \
+	persist.loc.nlp_name=com.qualcomm.services.location \
+	ro.gps.agps_provider=1
 
 # new props test
 PRODUCT_PROPERTY_OVERRIDES += \
