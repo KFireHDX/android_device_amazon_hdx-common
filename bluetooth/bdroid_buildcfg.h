@@ -28,6 +28,5 @@
 // skips conn update at conn completion
 #define BTA_BLE_SKIP_CONN_UPD  TRUE
 
-#define BTA_DISABLE_DELAY 1000 /* in milliseconds */
 #endif
 
