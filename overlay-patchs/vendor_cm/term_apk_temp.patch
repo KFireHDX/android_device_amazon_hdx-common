@@ -1,0 +1,11 @@
+--- a/config/common.mk	2015-03-31 18:41:34.000000000 +0200
++++ b/config/common.mk	2015-03-31 18:41:16.000000000 +0200
+@@ -219,7 +219,7 @@
+ # Terminal Emulator
+ PRODUCT_COPY_FILES +=  \
+     vendor/cm/proprietary/Term.apk:system/app/Term.apk \
+-    vendor/cm/proprietary/lib/armeabi/libjackpal-androidterm4.so:system/lib/libjackpal-androidterm4.so
++    vendor/cm/proprietary/lib/armeabi/libjackpal-androidterm5.so:system/lib/libjackpal-androidterm5.so
+ 
+ PRODUCT_PROPERTY_OVERRIDES += \
+     persist.sys.root_access=1
