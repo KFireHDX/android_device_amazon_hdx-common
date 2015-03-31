@@ -251,12 +251,6 @@ service check_shutdown /system/bin/auto_shutdown
     user root
     oneshot
 
-#service ppd /system/bin/mm-pp-daemon --enable-cabl --enable-ad
-#    class late_start
-#    user system
-#    socket pps stream 0660 system system graphics
-#   group system graphics
-
 service panelcal /system/bin/display-pp droid_set_pcc2mdp
     class late_start
     user root
