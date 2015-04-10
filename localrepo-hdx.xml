@@ -1,8 +1,5 @@
 <manifest>
 
-	<!-- this should fix ota when gapps is installed -->
-	<remove-project name="CyanogenMod/android_packages_apps_Provision" />
-
 	<project path="device/qcom/common" name="CyanogenMod/android_device_qcom_common" remote="github" revision="cm-11.0" />
 
 	<!--twrp recovery -->
